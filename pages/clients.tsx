@@ -1,17 +1,28 @@
-import { Box, Paper, Title } from '@mantine/core';
-import { ReactNode } from 'react';
-import Layout from '../../components/Layout/Layout';
+import { Box, Button, Paper } from '@mantine/core';
+import Banner from '../components/Banner/Banner';
+import Layout from '../components/Layout/Layout';
+import { PlusIcon } from '@modulz/radix-icons';
 
-const title = 'Clients';
-
-export default function TenantPage() {
+export default function Vertical() {
+  const banner = (
+    <Banner title="Clients">
+      <Button
+        size="md"
+        variant="outline"
+        color="dark"
+        radius={3}
+        sx={{
+          borderColor: '#bbb',
+          fontWeight: 400,
+        }}
+        leftIcon={<PlusIcon />}
+      >
+        Add Client
+      </Button>
+    </Banner>
+  );
   return (
-    <Layout>
-      <Title mt={30} sx={{ fontSize: 32 }}>
-        {title}
-      </Title>
-      <p style={{ color: '#789' }}>Hanya untuk Partner Account</p>
-      <br />
+    <Layout banner={banner}>
       <Paper withBorder sx={{ borderColor: '#ddd' }}>
         <ClientRow val="This page includes frequently asked questions from ." />
         <ClientRow val="Axiom is log management and analytics solution that reduces the" />

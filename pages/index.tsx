@@ -13,12 +13,11 @@ import {
 } from '@mantine/core';
 import Link from 'next/link';
 import { useWindowScroll } from '@mantine/hooks';
-import PageHeader from '../components/PageHeader/PageHeader';
 import Layout from '../components/Layout/Layout';
 
 export default function HomePage() {
   return (
-    <Layout projectId="">
+    <div>
       <Center px={20} pt={0}>
         <p>
           This starter Next.js project includes a minimal setup for server side rendering, if you
@@ -54,6 +53,6 @@ export default function HomePage() {
           <Button component="a">Mantine</Button>
         </Link>
       </Center>
-    </Layout>
+    </div>
   );
 }

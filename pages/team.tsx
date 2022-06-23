@@ -1,6 +1,6 @@
-import { Table, Title } from '@mantine/core';
-import Layout from '../../components/Layout/Layout';
-import { createStyles } from '@mantine/core';
+import { Button, createStyles, Table } from '@mantine/core';
+import Banner from '../components/Banner/Banner';
+import Layout from '../components/Layout/Layout';
 
 const useStyles = createStyles((theme) => ({
   td: {
@@ -12,7 +12,7 @@ const useStyles = createStyles((theme) => ({
   },
   tdLeft: {
     padding: 10,
-    borderRadius: '9px 0 0 9px',
+    borderRadius: '5px 0 0 5px',
     backgroundColor: '#f3f6f9',
     borderStyle: 'solid',
     borderColor: '#dee2e6',
@@ -21,7 +21,7 @@ const useStyles = createStyles((theme) => ({
   },
   tdRight: {
     padding: 10,
-    borderRadius: '0 9px 9px 0',
+    borderRadius: '0 5px 5px 0',
     backgroundColor: '#f3f6f9',
     borderStyle: 'solid',
     borderColor: '#dee2e6',
@@ -29,16 +29,18 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const title = 'Team';
-
-export default function TenantPage() {
+export default function Vertical() {
   const { classes } = useStyles();
+  const banner = (
+    <Banner title="Team Members">
+      <Button size="md" variant="outline" color="dark" radius={3}>
+        Invite
+      </Button>
+    </Banner>
+  );
+
   return (
-    <Layout>
-      <Title mt={30} sx={{ fontSize: 32 }}>
-        {title}
-      </Title>
-      <br />
+    <Layout banner={banner}>
       <Table verticalSpacing={10}>
         <tbody>
           <tr style={{ fontWeight: 500 }}>
