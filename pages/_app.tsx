@@ -29,8 +29,25 @@ export default function App(props: AppProps & { colorScheme: ColorScheme }) {
         <MantineProvider
           theme={{
             colorScheme,
+            primaryColor: 'yellow',
+            colors: {
+              yellow: [
+                '#FFFCE5',
+                '#FFF6B8',
+                '#FFF08A',
+                '#FFEA5C',
+                '#FFE42E',
+                '#FFDE00',
+                '#CCB200',
+                '#998500',
+                '#665900',
+                '#332C00',
+              ],
+            },
             fontSizes: {
+              sm: 13.75,
               md: 15,
+              lg: 17.5,
             },
           }}
           withGlobalStyles
