@@ -1,21 +1,18 @@
-import { useMediaQuery, useWindowScroll } from '@mantine/hooks';
 import ActionFrameTest from 'components/Frame/ActionFrameTest';
-import Layout from 'components/Layout/Layout';
-import { RecruitmentNav, SidebarRecuitment } from 'components/Topnav/RecruitmentNav';
-import Hero from 'components/Hero/Hero';
-import { Group, Text, Title } from '@mantine/core';
-import SimpleFrame from 'components/Frame/SimpleFrame';
-import Frame from 'components/Frame/Frame';
+import { Text, Title } from '@mantine/core';
 import Block from 'components/Block/Block';
+import { RecruitmentMenu } from 'components/Menu/Menu';
+import Layout, { PageSpec } from 'components/Layout/Layout';
+
+const pageSpec: PageSpec = {
+  menu: RecruitmentMenu,
+  type: 'Recruitment',
+  title: 'Overview',
+};
 
 export default function Index() {
-  const match = useMediaQuery('(min-width: 768px)');
-  const [scroll, scrollTo] = useWindowScroll();
-  const hero = <Hero label="Recruitment" title="Overview" />;
-  const topnav = <RecruitmentNav fixed={!match && scroll.y > 70} scroll={scroll.y} />;
-  const sidebar = <SidebarRecuitment />;
   return (
-    <Layout topnav={topnav} sidebar={sidebar} scroll={scroll.y} match={match} hero={hero}>
+    <Layout spec={pageSpec}>
       <Title order={3} mb={10}>
         Halaman tekstual
       </Title>

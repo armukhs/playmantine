@@ -1,22 +1,18 @@
-import { useMediaQuery, useWindowScroll } from '@mantine/hooks';
 import { useForm } from '@mantine/form';
-import Layout from 'components/Layout/Layout';
-import { RecruitmentNav, SidebarRecuitment } from 'components/Topnav/RecruitmentNav';
-import Hero from 'components/Hero/Hero';
+import Layout, { PageSpec } from 'components/Layout/Layout';
 import SimpleFrame from 'components/Frame/SimpleFrame';
 import Frame from 'components/Frame/Frame';
 import { Box, Text } from '@mantine/core';
-import { useState } from 'react';
 import Block from 'components/Block/Block';
+import { RecruitmentMenu } from 'components/Menu/Menu';
+
+const pageSpec: PageSpec = {
+  menu: RecruitmentMenu,
+  type: 'Recruitment',
+  title: 'Overview',
+};
 
 export default function Index() {
-  const match = useMediaQuery('(min-width: 768px)');
-  const [scroll, scrollTo] = useWindowScroll();
-  const hero = <Hero label="Aces Corporate" title="Projects" />;
-  const topnav = <RecruitmentNav fixed={!match && scroll.y > 70} scroll={scroll.y} />;
-  const sidebar = <SidebarRecuitment />;
-
-  const [show, setShow] = useState(false);
   const form = useForm({
     initialValues: {
       nama: 'Joko',
@@ -24,7 +20,7 @@ export default function Index() {
     },
   });
   return (
-    <Layout topnav={topnav} sidebar={sidebar} scroll={scroll.y} match={match} hero={hero}>
+    <Layout spec={pageSpec}>
       <Box p={15} mb={20}>
         <Text mb={25}>
           This problem is occurred when you have tried to rehydrate you react app. Generated react

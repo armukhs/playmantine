@@ -1,13 +1,12 @@
-import { ReactNode } from 'react';
 import { createStyles } from '@mantine/core';
 import Link from 'next/link';
-import { AcesLink } from 'components/Topnav/Topnav';
 import { useRouter } from 'next/router';
+import { LinkProps } from './Menu';
 
 const styles = createStyles((theme, { active }: { active?: boolean }) => ({
   wrap: {
     margin: 0,
-    padding: 0,
+    padding: '0px 0 0',
     listStyle: 'none',
     display: 'flex',
     flexDirection: 'column',
@@ -27,8 +26,8 @@ const styles = createStyles((theme, { active }: { active?: boolean }) => ({
     display: 'inline-flex',
     alignItems: 'center',
     gap: 8,
-    color: active ? theme.colors.orange[6] : theme.colors.dark[5],
-    fontWeight: active ? 600 : 400,
+    color: active ? theme.colors.orange[6] : theme.colors.gray[8],
+    fontWeight: active ? 500 : 400,
     textDecoration: 'none',
     ':hover': {
       borderRadius: 4,
@@ -37,7 +36,7 @@ const styles = createStyles((theme, { active }: { active?: boolean }) => ({
   },
 }));
 
-export default function Sidebar({ links }: { links: AcesLink[] }) {
+export default function Sidebar({ links }: { links: LinkProps[] }) {
   const { pathname } = useRouter();
   const { classes } = styles({});
   return (
@@ -49,7 +48,7 @@ export default function Sidebar({ links }: { links: AcesLink[] }) {
   );
 }
 
-function SidebarItem({ link, active }: { link: AcesLink; active?: boolean }) {
+function SidebarItem({ link, active }: { link: LinkProps; active?: boolean }) {
   const { classes } = styles({ active: active });
   return (
     <li className={classes.itemWrap}>
