@@ -41,9 +41,9 @@ export const useStyles = createStyles((theme) => ({
     backgroundColor: theme.white,
     borderBottom: '1px solid transparent',
     '@media (min-width: 768px)': {
-      // display: 'none',
-      position: 'fixed',
-      top: -200,
+      display: 'none',
+      // position: 'fixed',
+      // top: -200,
     },
   },
 

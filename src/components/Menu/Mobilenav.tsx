@@ -7,77 +7,54 @@ import { useEffect, useState } from 'react';
 import { LinkProps } from './Menu';
 
 export default function Mobilenav({ links }: { links: LinkProps[] }) {
-  const { classes, cx } = useStyles();
+  const { classes } = useStyles();
   const { ref, width } = useElementSize();
-  const [navRights, setNavRights] = useState<number[]>([]);
-  const [shadowLinks, setShadowLinks] = useState(links);
+  const [shadowLinks, setShadowLinks] = useState<LinkProps[]>([]);
 
   useEffect(() => {
-    const array: number[] = [];
-    document.querySelectorAll('#navwrap a').forEach((el, index) => {
-      array.push(Math.round(el.getBoundingClientRect().right));
+    const rs: LinkProps[] = [];
+    let top = 0;
+    document.querySelectorAll('#navwrap a').forEach((el, i) => {
+      const _top = el.getBoundingClientRect().top;
+      if (i == 0) top = _top;
+      if (_top > top) rs.push(links[i]);
     });
-    setNavRights(array);
+    setShadowLinks(rs);
     return () => {};
-  }, []);
-
-  useEffect(() => {
-    const array: { href: string; label: string; hidden: boolean }[] = [];
-    navRights.forEach((value, index) => {
-      array.push({
-        ...links[index],
-        hidden: width < navRights[index] + 16,
-      });
-    });
-    setShadowLinks(array);
-
-    return () => {};
-  }, [width, navRights, setShadowLinks]);
+  }, [width]);
 
   return (
     <div ref={ref} id="mobilenav">
       <div className={classes.wrap}>
         <div id="navwrap" className={classes.flex}>
-          {links.map((link, index) => (
-            <LinkItem key={link.href} link={link} index={index} width={width} widths={navRights} />
+          {links.map((link) => (
+            <LinkItem key={link.href} link={link} />
           ))}
         </div>
-        {width > 0 && navRights.length > 0 && width < navRights[navRights.length - 1] + 10 && (
-          <Menu>
-            {shadowLinks
-              .filter((item) => item.hidden)
-              .map((link) => (
+        <div className={classes.menuwrap}>
+          {shadowLinks.length > 0 && (
+            <Menu>
+              {shadowLinks.map((link) => (
                 <Menu.Item key={link.href} component={NextLink} href={link.href}>
                   {link.label}
                 </Menu.Item>
               ))}
-          </Menu>
-        )}
+            </Menu>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-function LinkItem({
-  link,
-  index,
-  width,
-  widths,
-}: {
-  link: { href: string; label: string };
-  index: number;
-  width: number;
-  widths: number[];
-}) {
+function LinkItem({ link }: { link: { href: string; label: string } }) {
   const { pathname } = useRouter();
   const { classes, cx } = useStyles();
   return (
     <Link href={link.href}>
       <a
-        hidden-at={widths[index]}
         className={cx(classes.item, {
           [classes.active]: pathname == link.href,
-          [classes.hidden]: width < widths[index] + 10,
         })}
       >
         <span>{link.label}</span>
@@ -88,16 +65,17 @@ function LinkItem({
 
 const useStyles = createStyles((theme) => ({
   wrap: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    position: 'relative',
+    height: 50,
     marginLeft: -12,
     overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'space-between',
+    position: 'relative',
   },
 
   flex: {
     display: 'flex',
+    flexWrap: 'wrap',
     alignItems: 'center',
     fontSize: 13.25,
     fontWeight: 500,
@@ -105,7 +83,8 @@ const useStyles = createStyles((theme) => ({
 
   item: {
     position: 'relative',
-    display: 'inline-block',
+    // display: 'inline-block',
+    display: 'block',
     padding: '0 12px',
     fontSize: 13.5,
     fontWeight: 500,
@@ -142,4 +121,11 @@ const useStyles = createStyles((theme) => ({
   },
 
   hidden: { display: 'none' },
+
+  menuwrap: {
+    width: 36,
+    flexShrink: 0,
+    display: 'flex',
+    alignItems: 'center',
+  },
 }));
